@@ -28,4 +28,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WishList.Core\WishList.Core.csproj" />
+    <ProjectReference Include="..\WishList.DataBase\WishList.DataBase.csproj" />
+    <ProjectReference Include="..\WishList.Services\WishList.Services.csproj" />
+    <ProjectReference Include="..\Wishlist.Web\Wishlist.Web.csproj" />
+  </ItemGroup>
+
 </Project>
