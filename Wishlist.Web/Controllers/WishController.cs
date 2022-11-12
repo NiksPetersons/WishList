@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Wishlist.Web.RequestModels;
 using WishList.Core.Models;
+using WishList.Core.Validations;
 using WishList.Services;
 
 namespace Wishlist.Web.Controllers
@@ -10,19 +12,29 @@ namespace Wishlist.Web.Controllers
     public class WishController : ControllerBase
     {
         private readonly IWishService _service;
+        private readonly IMapper _mapper;
+        private readonly IEnumerable<IWishValidator> _validators;
 
-        public WishController(IWishService service)
+        public WishController(IWishService service, IMapper mapper, IEnumerable<IWishValidator> validators)
         {
             _service = service;
+            _mapper = mapper;
+            _validators = validators;
         }
 
         [HttpPut]
         [Route("add")]
-        public IActionResult AddWish(Wish wish)
+        public IActionResult AddWish(WishRequest wishRequest)
         {
+            if (!_validators.Any(x => x.IsValid(wishRequest)))
+            {
+                return BadRequest("Name cannot be null or empty");
+            }
+
+            var wish = _mapper.Map<Wish>(wishRequest);
             _service.Create(wish);
 
-            return Created("", wish);
+            return Created("", wishRequest);
         }
 
         [HttpDelete]
@@ -30,6 +42,12 @@ namespace Wishlist.Web.Controllers
         public IActionResult DeleteWish(int id)
         {
             var wish = _service.GetById<Wish>(id);
+
+            if (wish == null)
+            {
+                return NotFound("Wish with id of " + id + " does not exist");
+            }
+
             _service.Delete(wish);
 
             return Ok();
@@ -37,13 +55,25 @@ namespace Wishlist.Web.Controllers
 
         [HttpPut]
         [Route("update/{id}")]
-        public IActionResult UpdateWish(int id, Wish wish)
+        public IActionResult UpdateWish(int id, WishRequest wishRequest)
         {
-            var originalWish = _service.GetById<Wish>(id);
-            originalWish.Name = wish.Name;
-            _service.Update(originalWish);
+            if (!_validators.Any(x => x.IsValid(wishRequest)))
+            {
+                return BadRequest();
+            }
 
-            return Ok(originalWish);
+            var originalWish = _service.GetById<Wish>(id);
+
+            if (originalWish == null)
+            {
+                return NotFound("Wish with id of " + id + " does not exist");
+            }
+
+            originalWish.Name = wishRequest.Name;
+            _service.Update(originalWish);
+            wishRequest = _mapper.Map<WishRequest>(originalWish);
+
+            return Ok(wishRequest);
         }
 
         [HttpGet]
@@ -52,7 +82,14 @@ namespace Wishlist.Web.Controllers
         {
             var wish = _service.GetById<Wish>(id);
 
-            return Ok(wish);
+            if (wish == null)
+            {
+                return NotFound("Wish with id of " + id + " does not exist");
+            }
+
+            var request = _mapper.Map<WishRequest>(wish);
+
+            return Ok(request);
         }
 
         [HttpGet]
@@ -61,7 +98,9 @@ namespace Wishlist.Web.Controllers
         {
             var wishes = _service.GetAll<Wish>();
 
-            return Ok(wishes);
+            var wishRequests = _mapper.Map<List<WishRequest>>(wishes);
+
+            return Ok(wishRequests);
         }
     }
 }

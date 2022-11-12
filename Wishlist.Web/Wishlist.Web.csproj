@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -20,6 +21,11 @@
     <ProjectReference Include="..\WishList.Core\WishList.Core.csproj" />
     <ProjectReference Include="..\WishList.DataBase\WishList.DataBase.csproj" />
     <ProjectReference Include="..\WishList.Services\WishList.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AutoMapper\" />
+    <Folder Include="RequestModels\" />
   </ItemGroup>
 
 </Project>
