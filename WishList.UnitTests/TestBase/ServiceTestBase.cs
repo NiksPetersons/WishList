@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WishList.DataBase;
-using WishList.Services;
 
 namespace WishList.UnitTests.TestBase;
 

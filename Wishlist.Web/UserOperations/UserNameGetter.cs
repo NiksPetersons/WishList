@@ -1,7 +1,6 @@
 ﻿using WishList.Core.Models;
-using Wishlist.Web.RequestModels;
 
-namespace WishList.Core.UserOperations;
+namespace Wishlist.Web.UserOperations;
 
 public static class UserNameGetter
 {

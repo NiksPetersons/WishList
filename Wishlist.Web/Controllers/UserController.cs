@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WishList.Core.Models;
-using WishList.Core.UserOperations;
 using Wishlist.Web.RequestModels;
+using Wishlist.Web.UserOperations;
 
 namespace Wishlist.Web.Controllers
 {

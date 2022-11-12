@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using WishList.Core.Models;
-using WishList.Core.UserOperations;
+using Wishlist.Web.UserOperations;
 
 namespace WishList.UnitTests;
 
