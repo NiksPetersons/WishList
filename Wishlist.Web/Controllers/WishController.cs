@@ -34,7 +34,7 @@ namespace Wishlist.Web.Controllers
 
             var wish = _mapper.Map<Wish>(wishRequest);
             _service.Create(wish);
-            var uri = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/wishlist/wish/{wish.Id}";
+            var uri = $"{Request.Scheme}://{Request.Host}/wishlist/wish/{wish.Id}";
 
             return Created(uri, wishRequest);
         }
