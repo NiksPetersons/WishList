@@ -30,7 +30,7 @@
 ### HTTP Get for getting wish by id
 > /wishlist/wish/id (id = integer)
 
-###HTTP Get for getting all wishes 
+### HTTP Get for getting all wishes 
 > /wishlist/wishes
 </br>
 
