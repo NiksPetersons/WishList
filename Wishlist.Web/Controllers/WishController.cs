@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Wishlist.Web.RequestModels;
 using WishList.Core.Models;
@@ -35,6 +34,7 @@ namespace Wishlist.Web.Controllers
             var wish = _mapper.Map<Wish>(wishRequest);
             _service.Create(wish);
             var uri = $"{Request.Scheme}://{Request.Host}/wishlist/wish/{wish.Id}";
+
 
             return Created(uri, wishRequest);
         }
