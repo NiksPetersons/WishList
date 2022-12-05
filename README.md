@@ -1,6 +1,6 @@
 # Wishlist API application
 </br>
-> API operations for adding, deleting, updating and searching wishes
+> API operations for adding, deleting, updating and searching for wishes
 </br>
 > Using C#, .NET 6, PostgreSQL, Entity Framework with code first approach
 </br>
